@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cold and Cough Quiz - Learn & Test Your Knowledge</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Modern, minimalistic styling with muted colors */
+    :root {
+      --primary: #546e7a;
+      --secondary: #78909c;
+      --accent: #90a4ae;
+      --correct: #81c784;
+      --incorrect: #e57373;
+      --light: #f5f5f5;
+      --dark: #37474f;
+      --info-bg: #eceff1;
+      --info-border: #cfd8dc;
+      --text: #455a64;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent; /* Remove tap highlight on iOS */
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      background-color: var(--light);
+      color: var(--text);
+      padding: 0;
+      margin: 0;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased; /* Improve font rendering on macOS/iOS */
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      background-color: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-brand {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .navbar-nav {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-link {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 5px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--dark);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section Styles */
+    .hero {
+      background-color: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 90px 0;
+      margin-bottom: 60px;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Section Styles */
+    section {
+      margin-bottom: 70px;
+    }
+
+    section h2 {
+      color: var(--dark);
+      margin-bottom: 30px;
+      font-size: 1.8rem;
+      font-weight: 600;
+      position: relative;
+      display: inline-block;
+      letter-spacing: -0.5px;
+    }
+
+    section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--accent);
+    }
+
+    /* Introduction Section */
+    .introduction {
+      padding: 20px 0;
+    }
+
+    .introduction p {
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      max-width: 800px;
+    }
+
+    .introduction img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 20px 0;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Medication Info Section */
+    .medication-info {
+      background-color: white;
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .medication-info h3 {
+      color: var(--dark);
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .medication-info p,
+    .medication-info ul,
+    .medication-info ol {
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .medication-info ul,
+    .medication-info ol {
+      padding-left: 20px;
+    }
+
+    .medication-info li {
+      margin-bottom: 10px;
+    }
+
+    .medication-info strong {
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    /* Quiz Styles */
+    .quiz-container {
+      background: white;
+      border-radius: 8px;
+      margin: 30px 0;
+      padding: 40px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 6px;
+      background-color: #eceff1;
+      border-radius: 3px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background-color: var(--accent);
+      border-radius: 3px;
+      transition: width 0.4s ease-out;
+      width: 0%;
+    }
+
+    .question {
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .question.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .question p {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: var(--dark);
+      font-weight: 500;
+    }
+
+    .question label {
+      display: block;
+      padding: 12px 15px;
+      margin: 10px 0;
+      background-color: var(--info-bg);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      border-left: 2px solid transparent;
+    }
+
+    .question label:hover {
+      background-color: #e1e5ea;
+    }
+
+    .question input[type="radio"] {
+      accent-color: var(--primary);
+      margin-right: 10px;
+    }
+
+    .explanation {
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      opacity: 0;
+      transition: opacity 0.4s ease-in;
+    }
+
+    .explanation.show {
+      opacity: 1;
+    }
+
+    .correct {
+      background-color: rgba(129, 199, 132, 0.1);
+      border: 1px solid var(--correct);
+      color: #2e7d32;
+    }
+
+    .incorrect {
+      background-color: rgba(229, 115, 115, 0.1);
+      border: 1px solid var(--incorrect);
+      color: #c62828;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      outline: none;
+      -webkit-appearance: none; /* Remove default button styling on iOS */
+    }
+
+    .btn:hover {
+      background-color: var(--dark);
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      background-color: var(--darker-primary); /* More prominent active state */
+    }
+
+    .results {
+      text-align: center;
+      margin: 30px 0;
+      padding: 40px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      display: none;
+      transform: scale(0.95);
+      opacity: 0;
+      transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    }
+
+    .results.show {
+      display: block;
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .score {
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 10px 0;
+      letter-spacing: -1px;
+    }
+
+    .feedback {
+      font-size: 1.1rem;
+      margin: 15px 0;
+      color: var(--text);
+    }
+
+    .selected {
+      background-color: #e1e5ea !important;
+      border-left: 3px solid var(--primary) !important;
+    }
+
+    .question label.disabled {
+      pointer-events: none;
+    }
+
+    /* Additional Resources Section */
+    .additional-resources {
+      background-color: white;
+      border-radius: 8px;
+      padding: 40px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .additional-resources h2 {
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+
+    .additional-resources p {
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .additional-resources ul {
+      padding-left: 20px;
+    }
+
+    .additional-resources li {
+      margin-bottom: 10px;
+    }
+
+    .additional-resources a {
+      color: var(--primary);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .additional-resources a:hover {
+      color: var(--dark);
+    }
+
+    .additional-resources a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--dark);
+      transition: width 0.3s ease;
+    }
+
+    .additional-resources a:hover::after {
+      width: 100%;
+    }
+
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: #78909c;
+      background-color: white;
+      border-top: 1px solid #eceff1;
+    }
+
+    /* Splash Screen */
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--dark);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 1;
+      transition: opacity 0.5s ease-out;
+    }
+
+    .splash-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .splash-screen h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .splash-screen p {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Loader */
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 30px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Custom Alert */
+    .custom-alert {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+      z-index: 1001;
+      display: none;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .custom-alert p {
+      margin-bottom: 20px;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .custom-alert button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
+      -webkit-appearance: none; /* Remove default button styling on iOS */
+    }
+
+    .custom-alert button:hover {
+      background-color: var(--dark);
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(55, 71, 79, 0.7);
+      backdrop-filter: blur(3px);
+      z-index: 1000;
+      display: none;
+    }
+
+    .btn-next {
+      display: none;
+      background-color: var(--secondary);
+    }
+
+    #restart-btn {
+      background-color: var(--accent);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 15px;
+      }
+
+      .hero {
+        padding: 60px 0;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      section {
+        margin-bottom: 50px;
+      }
+
+      section h2 {
+        font-size: 1.6rem;
+      }
+
+      .navbar-container {
+        flex-direction: column;
+      }
+
+      .navbar-brand {
+        margin-bottom: 15px;
+      }
+
+      .navbar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .medication-info,
+      .quiz-container,
+      .additional-resources {
+        padding: 25px;
+      }
+
+      .question p {
+        font-size: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px 15px;
+      }
+
+      .score {
+        font-size: 3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar-nav {
+        gap: 10px;
+      }
+
+      .nav-link {
+        font-size: 0.85rem;
+      }
+
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+
+      .medication-info,
+      .quiz-container,
+      .additional-resources {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Splash Screen -->
+  <div class="splash-screen">
+    <div class="loader-container">
+      <div class="loader"></div>
+    </div>
+    <h1>Cold and Cough Quiz</h1>
+    <p>Test your knowledge about medications and treatments</p>
+  </div>
+
+  <!-- Custom Alert -->
+  <div class="overlay" id="overlay"></div>
+  <div class="custom-alert" id="customAlert">
+    <p id="alertMessage"></p>
+    <button onclick="hideCustomAlert()">OK</button>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="#" class="navbar-brand">Cough & Cold Quiz</a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a href="#introduction-section" class="nav-link">Introduction</a></li>
+        <li class="nav-item"><a href="#medication-info-section" class="nav-link">Medication Info</a></li>
+        <li class="nav-item"><a href="#quiz-section" class="nav-link">Quiz</a></li>
+        <li class="nav-item"><a href="#resources-section" class="nav-link">Resources</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>Test Your Cold and Cough Medication Knowledge</h1>
+      <p>Learn about over-the-counter remedies and safe practices, then test yourself!</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- Introduction Section -->
+    <section id="introduction-section" class="introduction" style="position: relative;">
+        <!-- Banner Image -->
+        <img src="banner.png" alt="OTC Medications Banner" style="display: block; width: 100%; height: 400px; object-fit: cover; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+
+        <!-- Overlay Text Container -->
+        <div style="
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            transform: translateY(-50%);
+            background: #546e7a;
+            color: white;
+            padding: 20px;
+            width: 70%;
+            max-width: 550px;
+            border-radius: 10px;
+            text-align: left;
+        ">
+            <h2 style="margin: 0; font-size: 1.8rem; color: white">Introduction</h2>
+            <p style="margin-top: 10px; font-size: 1rem; line-height: 1.5;">
+                This e-leaflet provides clear and concise information about over-the-counter cough and cold medications.
+                It covers common medications, safe usage, side effects, drug interactions, and proper storage and disposal.
+                Tailored for adults and seniors, this guide helps you make informed decisions for managing cold symptoms.
+            </p>
+        </div>
+    </section>
+
+
+    <!-- Medication Information Section -->
+    <section id="medication-info-section" class="medication-info">
+      <h2>Medication Information</h2>
+      <h3>Understanding Over-the-Counter (OTC) Cold and Cough Medications</h3>
+      <p>This guide provides information on common OTC medications used to relieve cold and cough symptoms. Always consult a healthcare professional for personalized advice.</p>
+
+      <h3>List of Common OTC Cough and Cold Medications</h3>
+      <ul>
+        <li><strong>Decongestants:</strong> e.g., Pseudoephedrine and Phenylephrine.</li>
+        <li><strong>Antihistamines:</strong> e.g., Diphenhydramine (first-generation) and Loratadine (second-generation).</li>
+        <li><strong>Expectorants:</strong> e.g., Guaifenesin helps thin mucus.</li>
+        <li><strong>Cough Suppressants:</strong> e.g., Dextromethorphan reduces coughing.</li>
+        <li><strong>Pain Relievers:</strong> e.g., Acetaminophen and Ibuprofen relieve pain and fever.</li>
+        <li><strong>Combination Medications:</strong> Combine multiple ingredients to tackle various symptoms.</li>
+      </ul>
+
+      <h3>Safe Use and Dosage</h3>
+      <ul>
+        <li><strong>Read the Label:</strong> Follow directions and warnings closely.</li>
+        <li><strong>Dosage:</strong> Do not exceed the recommended dose.</li>
+        <li><strong>Age Appropriateness:</strong> Check age restrictions; consult a doctor for children under 6 months.</li>
+        <li><strong>Duration:</strong> Avoid using nasal sprays beyond 3-5 days to prevent rebound congestion.</li>
+      </ul>
+
+      <h3>Potential Side Effects</h3>
+      <p>OTC medications may cause side effects. Examples include:</p>
+      <ul>
+        <li><strong>Decongestants:</strong> Increased heart rate, elevated blood pressure, restlessness.</li>
+        <li><strong>Antihistamines:</strong> Drowsiness, dry mouth, blurred vision.</li>
+        <li><strong>Expectorants:</strong> Nausea and stomach upset.</li>
+        <li><strong>Cough Suppressants:</strong> Dizziness, drowsiness, nausea.</li>
+        <li><strong>Pain Relievers:</strong> Stomach upset or, with excessive doses, liver damage (acetaminophen).</li>
+      </ul>
+
+      <h3>Drug Interactions
+        <a href="#" onclick="showCustomAlert('Drug interactions occur when a substance affects the activity of a drug, either increasing or decreasing its effectiveness or causing unintended side effects. These interactions can occur between prescription medications, over-the-counter drugs, herbal supplements, and even certain foods or beverages. Common types include drug-drug interactions, drug-food interactions, and drug-condition interactions. To ensure safety and effectiveness, always consult a pharmacist or healthcare provider before combining medications.'); return false;" style="font-size: 0.9rem;">
+          Learn more
+        </a>
+      </h3>
+            <ul>
+        <li>Inform your healthcare provider about all medications you are taking.</li>
+        <li>Check labels for warnings about interactions.</li>
+        <li>Avoid taking multiple products with the same active ingredients.</li>
+      </ul>
+
+      <h3>Storage and Disposal <a href="#" onclick="showCustomAlert('Store medications in a cool, dry place and dispose of expired medications through take-back programs or as directed on the label.'); return false;" style="font-size: 0.9rem;">Learn more</a></h3>
+      <ul>
+        <li>Store in a cool, dry place away from direct sunlight.</li>
+        <li>Keep out of reach of children and pets.</li>
+        <li>Dispose of medications via take-back programs or as per label instructions.</li>
+      </ul>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz-section" class="quiz-container">
+      <h2>Quiz: Test Your Knowledge</h2>
+      <div class="progress-container">
+        <div class="progress-bar" id="progress"></div>
+      </div>
+      <div id="quiz"></div>
+      <button class="btn btn-check" id="check-btn" onclick="checkAnswers()">Check Answers</button>
+      <button class="btn btn-next" id="next-btn" onclick="nextQuestion()">Next question</button>
+      <button class="btn" id="restart-btn" onclick="restartQuiz()" style="display:none; background: linear-gradient(135deg, #6a9113, #4caf50);">Try Again</button>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results" id="results">
+      <h2>Quiz Results</h2>
+      <div class="score" id="score">0/15</div>
+      <p class="feedback" id="feedback">Complete the quiz to see your score!</p>
+    </section>
+
+    <!-- Additional Resources Section -->
+    <section id="resources-section" class="additional-resources">
+      <h2>Additional Resources</h2>
+      <p>For further reading and detailed guidance, consider visiting these reputable sources:</p>
+      <ul>
+        <li><a href="https://www.fda.gov/" target="_blank">FDA Drug Information</a></li>
+        <li><a href="https://medlineplus.gov/" target="_blank">MedlinePlus</a></li>
+        <li><a href="https://www.cdc.gov/" target="_blank">Centers for Disease Control and Prevention (CDC)</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>This quiz and guide are for educational purposes only and not medical advice. Always consult a healthcare professional for personalized medical guidance.</p>
+    </div>
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        question: "1) Which of the following is a common OTC decongestant medication?",
+        answers: ["Amoxicillin", "Pseudoephedrine", "Loratadine", "Guaifenesin"],
+        correctIndex: 1,
+        correctExplanation: "Pseudoephedrine is a common OTC decongestant that helps relieve nasal congestion.",
+        wrongExplanation: ["Amoxicillin is an antibiotic, not a decongestant.", "Loratadine is an antihistamine.", "Guaifenesin is an expectorant."]
+      },
+      {
+        question: "2) What is the primary purpose of an expectorant in cold and cough medications?",
+        answers: ["To suppress coughing", "To relieve pain", "To thin mucus and make it easier to cough up", "To reduce fever"],
+        correctIndex: 2,
+        correctExplanation: "Expectorants like guaifenesin work to thin mucus, making coughs more productive.",
+        wrongExplanation: ["Cough suppressants reduce coughing.", "Pain relievers like acetaminophen relieve pain.", "Antipyretics reduce fever."]
+      },
+      {
+        question: "3) Which of these side effects is most commonly associated with first-generation antihistamines like diphenhydramine (Benadryl)?",
+        answers: ["Increased alertness", "Drowsiness", "Nasal congestion", "Increased heart rate"],
+        correctIndex: 1,
+        correctExplanation: "Drowsiness is a well-known side effect of first-generation antihistamines.",
+        wrongExplanation: ["First-generation antihistamines typically cause drowsiness, not alertness.", "Antihistamines can sometimes cause dryness, but not nasal congestion.", "Increased heart rate is less common with antihistamines compared to decongestants."]
+      },
+      {
+        question: "4) For how many days should you typically use an OTC nasal decongestant spray to avoid rebound congestion?",
+        answers: ["Up to 10 days", "No limit as long as needed", "3 to 5 days", "Up to 2 weeks"],
+        correctIndex: 2,
+        correctExplanation: "Using nasal decongestant sprays for more than 3-5 days can lead to rebound congestion.",
+        wrongExplanation: ["Using for 10 days or more increases rebound congestion risk.", "There is a limit to avoid rebound congestion.", "2 weeks is too long and increases risk."]
+      },
+      {
+        question: "5) Which pain reliever is generally recommended for reducing fever and pain in children with colds or flu?",
+        answers: ["Aspirin", "Ibuprofen or Acetaminophen", "Naproxen", "Ketoprofen"],
+        correctIndex: 1,
+        correctExplanation: "Ibuprofen and acetaminophen are commonly recommended for children. Aspirin is generally avoided due to the risk of Reye's syndrome.",
+        wrongExplanation: ["Aspirin is not recommended for children due to Reye's syndrome risk.", "Naproxen and ketoprofen are less commonly used OTC for children compared to ibuprofen and acetaminophen."]
+      },
+      {
+        question: "6) What is the role of a cough suppressant (antitussive) like dextromethorphan?",
+        answers: ["To loosen mucus", "To stop or reduce coughing", "To relieve nasal swelling", "To reduce fever"],
+        correctIndex: 1,
+        correctExplanation: "Cough suppressants like dextromethorphan are used to reduce the urge to cough.",
+        wrongExplanation: ["Expectorants loosen mucus.", "Decongestants relieve nasal swelling.", "Antipyretics reduce fever."]
+      },
+      {
+        question: "7) Which of the following is NOT a common ingredient in OTC combination cold medications?",
+        answers: ["Decongestant", "Antihistamine", "Antibiotic", "Pain Reliever"],
+        correctIndex: 2,
+        correctExplanation: "Antibiotics are not effective against colds (which are viral) and are not included in OTC cold medications.",
+        wrongExplanation: ["Decongestants, antihistamines, and pain relievers are all common components of OTC combination cold products."]
+      },
+      {
+        question: "8) What should you do if you are unsure about which OTC cough and cold medication is right for you?",
+        answers: ["Ask a pharmacist or doctor", "Try a combination medication first", "Take the highest recommended dose to ensure effectiveness", "Rely on online forums for advice"],
+        correctIndex: 0,
+        correctExplanation: "Consulting a healthcare professional is the safest and most reliable way to get advice.",
+        wrongExplanation: ["Combination medications may not be necessary or appropriate.", "Higher doses are dangerous and not recommended.", "Online forums are not reliable sources for medical advice."]
+      },
+      {
+        question: "9) Which of these is a potential side effect of oral decongestants like pseudoephedrine?",
+        answers: ["Drowsiness", "Lowered blood pressure", "Insomnia and restlessness", "Decreased heart rate"],
+        correctIndex: 2,
+        correctExplanation: "Oral decongestants can stimulate the nervous system, leading to insomnia and restlessness.",
+        wrongExplanation: ["Drowsiness is more common with antihistamines.", "Decongestants can raise blood pressure.", "Decongestants can increase heart rate."]
+      },
+      {
+        question: "10) What is the best way to dispose of unused or expired OTC cough and cold medications?",
+        answers: ["Flush them down the toilet", "Throw them in the trash as is", "Use a medication take-back program if available", "Leave them at a donation center"],
+        correctIndex: 2,
+        correctExplanation: "Medication take-back programs are the safest way to dispose of medications.",
+        wrongExplanation: ["Flushing is not environmentally friendly and not recommended for most medications.", "Throwing in trash can be unsafe; take-back is preferred.", "Donation centers are not typically equipped to handle or redistribute medications."]
+      },
+      {
+        question: "11) Which of the following is a symptom that would warrant seeking medical advice rather than just using OTC cold medication?",
+        answers: ["Mild sore throat", "Occasional cough", "Difficulty breathing or chest pain", "Runny nose"],
+        correctIndex: 2,
+        correctExplanation: "Difficulty breathing or chest pain are serious symptoms that require immediate medical attention.",
+        wrongExplanation: ["Mild sore throat, occasional cough, and runny nose are common cold symptoms that OTCs can help manage."]
+      },
+      {
+        question: "12) What is the main benefit of using saline nasal sprays for a cold?",
+        answers: ["They contain decongestants", "They kill viruses", "They moisturize nasal passages and help clear mucus", "They are cough suppressants"],
+        correctIndex: 2,
+        correctExplanation: "Saline nasal sprays help to moisturize and clear nasal passages naturally.",
+        wrongExplanation: ["Saline sprays are not decongestants.", "They do not kill viruses.", "They are not cough suppressants."]
+      },
+      {
+        question: "13) Which vitamin is often discussed for its potential role in supporting the immune system during a cold, although evidence is mixed?",
+        answers: ["Vitamin D", "Vitamin B12", "Vitamin C", "Vitamin E"],
+        correctIndex: 2,
+        correctExplanation: "Vitamin C is often discussed for immune support, although scientific evidence on its effectiveness for colds is mixed.",
+        wrongExplanation: ["Vitamins D, B12, and E are less commonly associated with cold treatment compared to Vitamin C."]
+      },
+      {
+        question: "14) What should you consider when choosing between different formulations of the same OTC medication (e.g., liquid vs. tablets)?",
+        answers: ["Only the price", "Personal preference and ease of use", "Always choose the strongest formulation", "The color of the packaging"],
+        correctIndex: 1,
+        correctExplanation: "Personal preference, such as ease of swallowing liquids vs. tablets, is a key factor.",
+        wrongExplanation: ["Price is a factor but not the only one.", "Strongest formulation is not always better or necessary.", "Packaging color is irrelevant to effectiveness."]
+      },
+      {
+        question: "15) If your cold symptoms worsen after a week of using OTC medications, what is the recommended course of action?",
+        answers: ["Continue using the same medications for another week", "Increase the dosage of medications", "Consult a doctor", "Switch to herbal remedies"],
+        correctIndex: 2,
+        correctExplanation: "Worsening symptoms suggest you should seek professional medical advice.",
+        wrongExplanation: ["Continuing or increasing dosage without advice is not recommended.", "Herbal remedies are not a substitute for medical evaluation when symptoms worsen."]
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let quizDiv = document.getElementById('quiz');
+    let resultsDiv = document.getElementById('results');
+    let scoreDiv = document.getElementById('score');
+    let feedbackDiv = document.getElementById('feedback');
+    let progressDiv = document.getElementById('progress');
+    let checkButton = document.getElementById('check-btn');
+    let nextButton = document.getElementById('next-btn');
+    let restartButton = document.getElementById('restart-btn');
+    let splashScreen = document.querySelector('.splash-screen');
+
+    function showCustomAlert(message) {
+      document.getElementById('alertMessage').textContent = message;
+      document.getElementById('customAlert').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function hideCustomAlert() {
+      document.getElementById('customAlert').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        splashScreen.classList.add('hidden');
+        setTimeout(() => {
+          loadQuestion();
+        }, 600);
+      }, 2000);
+    });
+
+    function loadQuestion() {
+      const q = questions[currentQuestion];
+      let questionHTML = `
+        <div class="question">
+          <p>${q.question}</p>
+      `;
+      q.answers.forEach((answer, index) => {
+        questionHTML += `
+          <label onclick="handleLabelClick(this)">
+            <input type="radio" name="answer" value="${index}"> ${answer}
+            <div class="explanation" id="explanation-${currentQuestion}-${index}" style="display:none;"></div>
+          </label>
+        `;
+      });
+      questionHTML += `</div>`;
+      quizDiv.innerHTML = questionHTML;
+      const questionElement = quizDiv.querySelector('.question');
+      setTimeout(() => {
+        questionElement.classList.add('active');
+      }, 50);
+      updateProgress();
+      checkButton.style.display = "inline-block";
+      nextButton.style.display = "none";
+    }
+
+    function handleLabelClick(label) {
+      document.querySelectorAll('.question label').forEach(l => {
+        l.classList.remove('selected');
+      });
+      label.classList.add('selected');
+    }
+
+    function updateProgress() {
+      const progressPercentage = ((currentQuestion + 1) / questions.length) * 100;
+      progressDiv.style.width = `${progressPercentage}%`;
+    }
+
+    function checkAnswers() {
+      let selectedAnswer = document.querySelector('input[name="answer"]:checked');
+      if (!selectedAnswer) {
+        showCustomAlert("Please select an answer!");
+        return;
+      }
+      let answerIndex = parseInt(selectedAnswer.value);
+      let q = questions[currentQuestion];
+      let labels = document.querySelectorAll('.question label');
+      labels.forEach((label, index) => {
+        let explanationDiv = label.querySelector('.explanation');
+        explanationDiv.classList.add('show');
+        if (index == q.correctIndex) {
+          explanationDiv.textContent = q.correctExplanation;
+          explanationDiv.classList.add('correct');
+          label.classList.add('correct');
+        } else {
+          explanationDiv.textContent = q.wrongExplanation && q.wrongExplanation[index] ? q.wrongExplanation[index] : "This is not the correct answer.";
+          explanationDiv.classList.add('incorrect');
+          label.classList.add('incorrect');
+        }
+        explanationDiv.style.display = 'block';
+        label.classList.add('disabled');
+      });
+      checkButton.style.display = "none";
+      nextButton.style.display = "inline-block";
+      if (answerIndex === q.correctIndex) {
+        score++;
+      }
+      let radioButtons = document.querySelectorAll('input[name="answer"]');
+      radioButtons.forEach(button => {
+        button.disabled = true;
+      });
+    }
+
+    function nextQuestion() {
+      const questionElement = quizDiv.querySelector('.question');
+      questionElement.classList.remove('active');
+      questionElement.style.opacity = 0;
+      questionElement.style.transform = 'translateY(-20px)';
+      setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+          loadQuestion();
+          checkButton.textContent = "Check Answers";
+          checkButton.onclick = checkAnswers;
+        } else {
+          showResults();
+        }
+      }, 500);
+    }
+
+    function showResults() {
+      quizDiv.style.display = 'none';
+      checkButton.style.display = 'none';
+      resultsDiv.classList.add('show');
+      restartButton.style.display = 'inline-block';
+      nextButton.style.display = 'none';
+      scoreDiv.textContent = `${score}/${questions.length}`;
+      let feedbackMessage = '';
+      let percentage = (score / questions.length) * 100;
+      if (percentage >= 80) {
+        feedbackMessage = "Excellent! You have a strong understanding of cold and cough medications.";
+      } else if (percentage >= 60) {
+        feedbackMessage = "Good job! You have a solid grasp, but there's room for improvement.";
+      } else if (percentage >= 40) {
+        feedbackMessage = "Not bad, but you could brush up on some areas of OTC cold and cough remedies.";
+      } else {
+        feedbackMessage = "It seems you could benefit from learning more. Let's try again!";
+      }
+      feedbackDiv.textContent = feedbackMessage;
+      resultsDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function restartQuiz() {
+      resultsDiv.classList.remove('show');
+      setTimeout(() => {
+        currentQuestion = 0;
+        score = 0;
+        quizDiv.style.display = 'block';
+        resultsDiv.style.display = 'none';
+        restartButton.style.display = 'none';
+        checkButton.style.display = 'inline-block';
+        checkButton.textContent = "Check Answers";
+        checkButton.onclick = checkAnswers;
+        loadQuestion();
+      }, 400);
+    }
+  </script>
+</body>
+</html>
